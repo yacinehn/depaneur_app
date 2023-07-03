@@ -23,22 +23,14 @@ class _welcomeState extends State<welcome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Column(
+            const Column(
               children: <Widget>[
-                const Text(
+                Text(
                   "Welcome",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
-                ),
-                Text(
-                  "Student safety is our priority",
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 15,
-                  ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

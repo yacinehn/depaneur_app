@@ -31,14 +31,17 @@ class MyApp extends StatelessWidget {
       child: Consumer<ApplicationState>(
         builder: (context, appState, _) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'My App',
             routes: {
               "welcome": (context) => const welcome(),
               "login": (context) => const login(),
               "signup": (context) => const signup(),
               "login_agent": (context) => const login_agent(),
-              "home": (context) => const home(),
-              "accident": (context) => const Accedent(),
+              "home": (context) => const Home(),
+              "accident": (context) => const Accedent(
+                    x: '',
+                  ),
               "worker": (context) => const Worker()
             },
             home: appState.getHomePage(),

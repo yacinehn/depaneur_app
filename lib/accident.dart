@@ -6,7 +6,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Accedent extends StatefulWidget {
-  const Accedent({Key? key}) : super(key: key);
+  final String x;
+
+  const Accedent({Key? key, required this.x}) : super(key: key);
 
   @override
   State<Accedent> createState() => _AccedentState();
@@ -15,7 +17,7 @@ class Accedent extends StatefulWidget {
 class _AccedentState extends State<Accedent> {
   File? _imageFile;
   final Accident = FirebaseDatabase.instance.ref('Accident');
-  String x = "";
+
   Location? location;
   TextEditingController imageController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -60,14 +62,6 @@ class _AccedentState extends State<Accedent> {
           children: [
             ElevatedButton(
               onPressed: _getCurrentPosition,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.location_on),
-                  SizedBox(width: 8),
-                  Text("Get My Position"),
-                ],
-              ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                   const Color.fromARGB(255, 17, 32, 45),
@@ -82,6 +76,14 @@ class _AccedentState extends State<Accedent> {
                     side: const BorderSide(color: Colors.black),
                   ),
                 ),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.location_on),
+                  SizedBox(width: 8),
+                  Text("Get My Position"),
+                ],
               ),
             ),
             const SizedBox(height: 20),
@@ -163,7 +165,7 @@ class _AccedentState extends State<Accedent> {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 _sendAccidentReport();
               },
               child: const Text('Send'),
@@ -247,20 +249,34 @@ class _AccedentState extends State<Accedent> {
         return;
       }
 
-      Accident.child(userNumber).set({
-        'image': imageController.text,
-        'description': descriptionController.text,
-        'location': {
-          'latitude': location!.latitude,
-          'longitude': location!.longitude,
-        },
-      });
+      try {
+        Accident.push().set({
+          'image': imageController.text,
+          'description': descriptionController.text,
+          'location': {
+            'latitude': location!.latitude,
+            'longitude': location!.longitude,
+          },
+          'case': widget.x,
+          'phoneNumber': userNumber
+        });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Accident report sent'),
-        ),
-      );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Accident report sent , u ll get a call'),
+          ),
+        );
+        Navigator.pop(context);
+      } catch (error, stackTrace) {
+        print('Error: $error');
+        print('Stack Trace: $stackTrace');
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('An error occurred while sending the report'),
+          ),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

@@ -5,15 +5,16 @@ import 'package:provider/provider.dart';
 
 import '../application_state.dart';
 
-class home extends StatefulWidget {
-  const home({super.key});
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<home> createState() => _homeState();
+  State<Home> createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   String x = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +37,8 @@ class _homeState extends State<home> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('images/user.png'),
               ),
-              accountName: Text("nom"),
-              accountEmail: Text("E-mail"),
+              accountName: Text("Zinedinne"),
+              accountEmail: Text("0792752524"),
             ),
             ListTile(
               title: const Text(
@@ -69,17 +70,23 @@ class _homeState extends State<home> {
           ],
         ),
       ),
-      body: Container(
+      body: Center(
         child: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisSpacing: 10,
+            mainAxisSpacing: 20,
           ),
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Accedent()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Accedent(
+                      x: 'remorquage',
+                    ),
+                  ),
+                );
                 x = 'Remorquage';
               },
               child: Container(
@@ -105,9 +112,14 @@ class _homeState extends State<home> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Accedent()));
-                x = 'accident';
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Accedent(
+                      x: 'accident',
+                    ),
+                  ),
+                );
               },
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -123,7 +135,7 @@ class _homeState extends State<home> {
                       width: 120,
                     ),
                     const Text(
-                      "accident",
+                      "Accident",
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     )
                   ],
@@ -132,9 +144,14 @@ class _homeState extends State<home> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Accedent()));
-                x = 'crevaison';
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Accedent(
+                      x: 'crevaison',
+                    ),
+                  ),
+                );
               },
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -159,8 +176,14 @@ class _homeState extends State<home> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Accedent()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Accedent(
+                      x: 'autre',
+                    ),
+                  ),
+                );
                 x = 'Autre';
               },
               child: Container(

@@ -50,7 +50,7 @@ class ApplicationState extends ChangeNotifier {
     final user = FirebaseAuth.instance.currentUser;
     if (loggedIn && user != null) {
       if (user.email?.endsWith('@user.com') ?? false) {
-        return const home();
+        return const Home();
       } else {
         return const Worker();
       }

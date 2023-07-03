@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../signin/login.dart';
@@ -11,6 +13,11 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController nickanmeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +38,8 @@ class _signupState extends State<signup> {
           ),
         )),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
+      body: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -81,6 +87,7 @@ class _signupState extends State<signup> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                       TextFormField(
+                                        controller: nameController,
                                         decoration: const InputDecoration(
                                             hintText: "Enter your name",
                                             enabledBorder: OutlineInputBorder(
@@ -105,6 +112,7 @@ class _signupState extends State<signup> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                       TextFormField(
+                                        controller: nickanmeController,
                                         decoration: const InputDecoration(
                                             hintText: "Enter your surname",
                                             enabledBorder: OutlineInputBorder(
@@ -125,6 +133,7 @@ class _signupState extends State<signup> {
                                     fontSize: 18, fontWeight: FontWeight.w400),
                               ),
                               TextFormField(
+                                controller: numberController,
                                 decoration: const InputDecoration(
                                     hintText: "Enter your phone number",
                                     enabledBorder: OutlineInputBorder(
@@ -142,6 +151,7 @@ class _signupState extends State<signup> {
                               ),
                               TextFormField(
                                 obscureText: true,
+                                controller: passwordController,
                                 decoration: const InputDecoration(
                                     hintText: "Enter your password",
                                     enabledBorder: OutlineInputBorder(
@@ -177,7 +187,41 @@ class _signupState extends State<signup> {
                       child: MaterialButton(
                         minWidth: 230,
                         height: 50,
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            // Form validation successful
+                            String username =
+                                nameController.text + nickanmeController.text;
+                            String password = passwordController.text;
+                            String phoneNumber = numberController.text;
+
+                            try {
+                              // Create the user with phone number and password
+                              UserCredential userCredential = await FirebaseAuth
+                                  .instance
+                                  .createUserWithEmailAndPassword(
+                                email: "$phoneNumber@user.com",
+                                password: password,
+                              );
+
+                              // Get the user's UID
+                              String uid = userCredential.user!.uid;
+
+                              // Save the user's username and UID in the Realtime Database
+                              DatabaseReference userRef = FirebaseDatabase
+                                  .instance
+                                  .ref()
+                                  .child('Users');
+                              userRef.push().set({
+                                'uid': uid,
+                                'username': username,
+                              });
+                            } catch (error) {
+                              // Handle any errors that occur during user creation
+                              print('Error creating user: $error');
+                            }
+                          }
+                        },
                         shape: RoundedRectangleBorder(
                           side: const BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(50),
