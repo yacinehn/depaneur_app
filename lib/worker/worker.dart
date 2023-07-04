@@ -3,7 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-
 import '../application_state.dart';
 
 class Worker extends StatefulWidget {
@@ -15,62 +14,64 @@ class Worker extends StatefulWidget {
 
 class _WorkerState extends State<Worker> {
   String? mId;
+
   Set<Marker> _markers = {};
   void _listenForAlerts() {
     final DatabaseReference databaseReference =
         FirebaseDatabase.instance.ref().child('Accident');
-
     databaseReference.onChildAdded.listen((event) {
       final alertData = event.snapshot.value as Map<dynamic, dynamic>;
-
       try {
-        final alertKey = alertData['alertKey'] as String;
         final locationData = alertData['location'];
-        final description = alertData['description'] as String;
-        final image = alertData['image'] as String;
-        final phoneNumber = alertData['phoneNumber'] as String;
-
+        final phoneNumber = alertData['phoneNumber'];
+        final description = alertData['description'];
+        final Case = alertData['case'] as String;
         if (locationData is Map<dynamic, dynamic>) {
           final latitude = locationData['latitude'] as double;
           final longitude = locationData['longitude'] as double;
 
           final marker = Marker(
-            markerId: MarkerId(alertKey),
+            markerId: MarkerId("s"),
             position: LatLng(latitude, longitude),
             icon:
                 BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           );
 
           setState(() {
-            mId = alertKey;
             _markers.add(marker);
           });
-
           showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('New Alert'),
-                  content: Column(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                // Center the dialog
+                alignment: Alignment.center,
+                // Set the dialog size
+
+                // Add your content
+                content: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.network(image),
                       const SizedBox(height: 10),
-                      Text('Description: $description'),
+                      Text('Description: $Case'),
                       const SizedBox(height: 10),
                       Text('Phone Number: $phoneNumber'),
                     ],
                   ),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle action
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              });
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle action
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
         }
       } catch (e) {
         // ignore: avoid_print
@@ -81,11 +82,11 @@ class _WorkerState extends State<Worker> {
 
   Future<void> _acceptAlert() async {
     setState(() {
-      _markers.removeWhere((marker) => marker.markerId.value == mId);
+      _markers.removeWhere((marker) => marker.markerId.value == "s");
       mId = null;
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Alert accepted')),
+      const SnackBar(content: Text('u removed the marker')),
     );
   }
 
@@ -145,8 +146,8 @@ class _WorkerState extends State<Worker> {
       body: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: const CameraPosition(
-          target: LatLng(36.813020, 7.716708),
-          zoom: 15.45,
+          target: LatLng(36.8969, 7.7498),
+          zoom: 15,
         ),
         markers: _markers,
       ),
@@ -158,7 +159,7 @@ class _WorkerState extends State<Worker> {
           heroTag: 'customSize',
           onPressed: () => _acceptAlert(),
           child: const Text(
-            "Accept",
+            "Done",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

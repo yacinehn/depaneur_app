@@ -19,6 +19,7 @@ class _loginState extends State<login> {
   final TextEditingController passwordController = TextEditingController();
   bool _isLoading = false;
   String _errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,17 +28,19 @@ class _loginState extends State<login> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: (IconButton(
+        leading: IconButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const welcome()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const welcome()),
+            );
           },
           icon: const Icon(
             Icons.arrow_back,
             size: 20,
             color: Colors.black,
           ),
-        )),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -71,48 +74,57 @@ class _loginState extends State<login> {
                     height: 20,
                   ),
                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                " phone number:",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Phone number:",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
                               ),
-                              TextFormField(
-                                controller: emailController,
-                                decoration: const InputDecoration(
-                                    hintText: "Enter your phone number",
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Colors.grey,
-                                    ))),
+                            ),
+                            TextFormField(
+                              controller: emailController,
+                              decoration: const InputDecoration(
+                                hintText: "Enter your phone number",
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ),
-                              const SizedBox(
-                                height: 10,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "Password:",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
                               ),
-                              const Text(
-                                " Password:",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                            ),
+                            TextFormField(
+                              obscureText: true,
+                              controller: passwordController,
+                              decoration: const InputDecoration(
+                                hintText: "Enter your password",
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ),
-                              TextFormField(
-                                obscureText: true,
-                                controller: passwordController,
-                                decoration: const InputDecoration(
-                                    hintText: "Enter your password",
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Colors.grey,
-                                    ))),
-                              ),
-                            ],
-                          )
-                        ],
-                      )),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
@@ -137,20 +149,19 @@ class _loginState extends State<login> {
                                     setState(() {
                                       _isLoading = false;
                                     });
-                                    // ignore: use_build_context_synchronously
                                     ApplicationState state =
-                                        // ignore: use_build_context_synchronously
                                         Provider.of<ApplicationState>(
                                       context,
                                       listen: false,
                                     );
                                     state.setLoggedIn(true);
-                                    // ignore: use_build_context_synchronously
                                     Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                state.getHomePage()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            state.getHomePage(),
+                                      ),
+                                    );
                                   } on FirebaseAuthException catch (e) {
                                     if (e.code == 'user-not-found') {
                                       setState(() {
@@ -193,6 +204,13 @@ class _loginState extends State<login> {
                   const SizedBox(
                     height: 7,
                   ),
+                  Text(
+                    _errorMessage,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -200,18 +218,21 @@ class _loginState extends State<login> {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const signup()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const signup(),
+                            ),
+                          );
                         },
                         child: const Text(
                           "Sign Up",
                           style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Colors.blue),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.blue,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Container(
@@ -222,10 +243,10 @@ class _loginState extends State<login> {
                         image: AssetImage("images/dep.png"),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -52,7 +52,7 @@ class _AccedentState extends State<Accedent> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Declaration'),
-        backgroundColor: const Color.fromARGB(255, 17, 32, 45),
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -63,9 +63,7 @@ class _AccedentState extends State<Accedent> {
             ElevatedButton(
               onPressed: _getCurrentPosition,
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color.fromARGB(255, 17, 32, 45),
-                ),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                   const EdgeInsets.all(12),
@@ -73,7 +71,7 @@ class _AccedentState extends State<Accedent> {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(color: Colors.blue),
                   ),
                 ),
               ),
@@ -111,9 +109,8 @@ class _AccedentState extends State<Accedent> {
                 ElevatedButton(
                   onPressed: _takePicture,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 17, 32, 45),
-                    ),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -122,7 +119,7 @@ class _AccedentState extends State<Accedent> {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.black),
+                        side: const BorderSide(color: Colors.blue),
                       ),
                     ),
                   ),
@@ -131,9 +128,8 @@ class _AccedentState extends State<Accedent> {
                 ElevatedButton(
                   onPressed: _chooseImage,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 17, 32, 45),
-                    ),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -142,7 +138,7 @@ class _AccedentState extends State<Accedent> {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.black),
+                        side: const BorderSide(color: Colors.blue),
                       ),
                     ),
                   ),
@@ -170,9 +166,7 @@ class _AccedentState extends State<Accedent> {
               },
               child: const Text('Send'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color.fromARGB(255, 17, 32, 45),
-                ),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                   const EdgeInsets.all(12),

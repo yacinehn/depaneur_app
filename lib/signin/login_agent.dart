@@ -191,6 +191,16 @@ class _login_agentState extends State<login_agent> {
                   const SizedBox(
                     height: 7,
                   ),
+                  Text(
+                    _errorMessage,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
                   Container(
                     padding: const EdgeInsets.only(top: 100),
                     height: 150,

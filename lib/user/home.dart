@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.notifications),
           ),
         ],
-        backgroundColor: const Color.fromARGB(255, 17, 32, 45),
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -83,11 +83,10 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Accedent(
-                      x: 'remorquage',
+                      x: 'Towing',
                     ),
                   ),
                 );
-                x = 'Remorquage';
               },
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -103,7 +102,7 @@ class _HomeState extends State<Home> {
                       width: 120,
                     ),
                     const Text(
-                      "Remorquage",
+                      "Towing",
                       style: TextStyle(color: Colors.white, fontSize: 22),
                     )
                   ],
@@ -148,7 +147,7 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Accedent(
-                      x: 'crevaison',
+                      x: 'puncture',
                     ),
                   ),
                 );
@@ -167,7 +166,7 @@ class _HomeState extends State<Home> {
                       width: 120,
                     ),
                     const Text(
-                      "Crevaison",
+                      "puncture",
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     )
                   ],
@@ -180,11 +179,10 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Accedent(
-                      x: 'autre',
+                      x: 'other',
                     ),
                   ),
                 );
-                x = 'Autre';
               },
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -200,7 +198,7 @@ class _HomeState extends State<Home> {
                       width: 120,
                     ),
                     const Text(
-                      "Autre",
+                      "other",
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     )
                   ],
